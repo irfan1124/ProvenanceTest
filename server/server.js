@@ -1,19 +1,17 @@
 require('dotenv').config();
 console.log(process.env.DEBUG);
 const express = require('express');
-var handlebars = require('express-handlebars');
 const path = require('path');
 import { ApolloServer } from 'apollo-server-express';
 const bodyParser = require('body-parser');
 import { makeExecutableSchema } from 'graphql-tools'
 import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
 
-const typeDefs = require('./schema').default;
-const resolvers = require('./index').default
-//import serverRoutes from "./middleware/routes";
+const typeDefs = require('./graphql/schema').default;
+const resolvers = require('./graphql/index').default
 import { initializeFirebaseApp, loginWithFirebase, verifyToken, addScopeToReq, revokeRefreshToken, getFirebaseUser } from './auth/firebase-auth';
-import joinMonsterMetadata from './schema/joinMonsterMetadata';
-import db from './db/config/config';
+import joinMonsterMetadata from './graphql/schema/joinMonsterMetadata';
+const knex = require('knex')(require('./db/config/knexConfig'))
 
 const app = express();
 
@@ -74,7 +72,6 @@ app.get('/user', verifyToken, addScopeToReq, guard.check(['user:read']), errorHa
   res.json({ success: true })
 })
 
-
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 joinMonsterAdapt(schema, joinMonsterMetadata);//
@@ -84,14 +81,12 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   schema,
   context: {
-    db,
+    knex,
     dialect
   }
 });
 
 server.applyMiddleware({ app }); // app is from an existing express app
-
-//app.use(serverRoutes);
 
 //database 
 // db.sequelize.authenticate()

@@ -62,11 +62,11 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Import Models such that I can use them in the api just by importing 'db'
-db.song = require('../models/song')(sequelize, Sequelize);
-db.lyric = require('../models/lyric')(sequelize, Sequelize);
+// db.song = require('../../models/song')(sequelize, Sequelize);
+// db.lyric = require('../models/lyric')(sequelize, Sequelize);
 
 
-db.lyric.belongsTo(db.song);
-db.song.hasOne(db.lyric, { as: 'song' })
+// db.lyric.belongsTo(db.song);
+// db.song.hasOne(db.lyric, { as: 'song' })
 
 module.exports = db;

@@ -1,9 +1,11 @@
+require('dotenv').config();
+console.log(process.env.DEBUG);
 module.exports = {
     client: 'mysql',
     connection: {
-      host : 'provenance-test.aglive.com',
-      user : 'provenance-test',
-      password : '9X!7pPAE0Dma9ff#',
-      database : 'Provenance'
+      host : process.env.DATABASE_HOST,
+      user : process.env.DATABASE_USERNAME,
+      password : process.env.DATABASE_PASSWORD,
+      database : process.env.DATABASE_NAME
     }
 };

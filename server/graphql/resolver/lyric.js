@@ -1,4 +1,4 @@
-import db from '../db/config/config';
+import db from '../../db/config/config';
 
 export default {
     Query: {
