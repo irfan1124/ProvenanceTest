@@ -1,0 +1,11 @@
+type Commodity {
+ commodityID: Int!
+ localName: String!
+ quantity: Int!
+ created: DateTime!
+}
+
+type Query {
+ commodity(commodityID: Int!): Commodity,
+ commodities: [Commodity]
+}

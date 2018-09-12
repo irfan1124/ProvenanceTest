@@ -3,16 +3,17 @@
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import GraphQLJSON from 'graphql-type-json';
+import { GraphQLDateTime, GraphQLDate, GraphQLTime } from 'graphql-iso-date';
 
 export default {
-    Date: new GraphQLScalarType({
-        name: 'Date',
-        description: 'Date custom scalar type',
+    DateTimeCustom: new GraphQLScalarType({
+        name: 'DateTimeCustom',
+        description: 'DateTime custom scalar type',
         parseValue(value) {
           return new Date(value);; // value from the client
         },
         serialize(value) {
-          return new Date(value).toUTCString(); // value sent to the client
+          return new Date(value).toDateString(); // value sent to the client
         },
         parseLiteral(ast) {
             console.log(value)
@@ -23,4 +24,7 @@ export default {
         },
     }),
     Json: GraphQLJSON,
+    Date: GraphQLDate,
+    Time: GraphQLTime,
+    DateTime: GraphQLDateTime,
 }

@@ -1,15 +1,15 @@
 
 type Query {
-    token(TokenID: ID!): Token,
+    token(tokenID: ID!): Token,
     tokens: [Token],
 }
 
 type Token {
-    TokenID: ID!,
-    UserID: Int!,
-    Token: String!
-    RefreshToken: String,
-    IsExpired: Boolean
-    CreatedDate: Date,
-    UserAgent: Json
+    tokenID: ID!,
+    userID: Int!,
+    token: String!
+    refreshToken: String,
+    isExpired: Boolean
+    createdDate: DateTime,
+    userAgent: Json
 }
