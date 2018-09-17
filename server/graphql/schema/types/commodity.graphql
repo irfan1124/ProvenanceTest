@@ -3,9 +3,19 @@ type Commodity {
  localName: String!
  quantity: Int!
  created: DateTime!
+ commodityGUID: String!
 }
 
 type Query {
  commodity(commodityID: Int!): Commodity,
  commodities: [Commodity]
+}
+
+input CommodityInput {
+    localName: String!
+    quantity: Int!
+}
+
+type Mutation {
+    createCommodity(input: CommodityInput) : Commodity
 }

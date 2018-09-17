@@ -58,6 +58,9 @@ export default {
             created: {
                 sqlColumn: 'Created'
             },
+            commodityGUID: {
+                sqlColumn: 'commodityGUID'
+            },
         },
        
     }

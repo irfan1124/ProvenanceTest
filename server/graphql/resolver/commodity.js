@@ -20,6 +20,8 @@ export default {
         }, 
     },
 	Mutation: {
-        
+        createCommodity: (parent, {input}, {knex, dialect}) => {
+            return knex('Commodity').returning([CommodityID, LocalName]).insert(input).return(console.log());
+        }
     },
 }
