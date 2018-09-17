@@ -11,7 +11,6 @@ export default {
                 }, dialect);
         }, 
         commodities: (parent, args, {knex, dialect}, info) => {
-            // return db.song.findAll({})
             return joinMonster(info, args, sql => {
                         console.log("sql all");
                         console.log(sql);
@@ -21,7 +20,13 @@ export default {
     },
 	Mutation: {
         createCommodity: (parent, {input}, {knex, dialect}) => {
-            return knex('Commodity').returning([CommodityID, LocalName]).insert(input).return(console.log());
+            return knex('Commodity').returning([input.localName]).insert(input).then( (resp) => { console.log(resp) });
         }
     },
+    Commodity: {
+    //     commodityGUID: ({ commodityGUID }, args, ctx, info) =>  {
+    //         console.log('convert BIN to GUID', commodityGUID.toString());
+    //         return '1256812A-BA53-11E8-9349-029786BD25B2'
+    //    }
+    }
 }

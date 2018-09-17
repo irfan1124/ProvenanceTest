@@ -16,8 +16,8 @@ var contains = function (str, seed) {
 }
 
 // check for valid date
-var isDate = function (str) {
-    return validator.isDate(str);
+var isISO8601 = function (str) {
+    return validator.isISO8601(str);
 }
 
 // check for empty string
@@ -36,7 +36,7 @@ var isNumeric = function (n) {
 }
 
 // check for valid uuid
-var isUUID = function (str) {
+var isGUID = function (str) {
     if (!str) return false;
     else if (typeof str != 'string') return false;
     return validator.isUUID(str);
@@ -104,7 +104,7 @@ let isAlphanumeric = (str) => {
 }
 
 module.exports = {
-    contains, isDate, isEmpty, isJSON, isNumeric, isUUID, isURL,
+    contains, isISO8601, isEmpty, isJSON, isNumeric, isGUID, isURL,
     trim, escape, unescape, toEmptyStr,
     getFirstChar, getLastChar, replaceAll,
     isAlphanumeric

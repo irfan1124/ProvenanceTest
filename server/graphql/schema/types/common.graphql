@@ -8,3 +8,5 @@ scalar Time
 scalar DateTime
 
 scalar DateTimeCustom
+
+scalar GUID

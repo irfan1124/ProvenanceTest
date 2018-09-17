@@ -3,7 +3,8 @@ type Commodity {
  localName: String!
  quantity: Int!
  created: DateTime!
- commodityGUID: String!
+ commodityGUID: GUID!
+ commoditiesData: [CommodityData!]!
 }
 
 type Query {
@@ -14,6 +15,7 @@ type Query {
 input CommodityInput {
     localName: String!
     quantity: Int!
+    commodityGUID: GUID!
 }
 
 type Mutation {

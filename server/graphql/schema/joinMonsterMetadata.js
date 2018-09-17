@@ -1,4 +1,5 @@
 import { escape, format } from 'sqlstring';
+import { resolve } from 'url';
 
 export default {
     Query: {
@@ -12,7 +13,7 @@ export default {
           },
           commodity: {
             where: (commodityTable, args, context) => {
-                console.log(args.TokenID)
+                console.log(args.commodityID)
                 if (args.commodityID) return format(`${commodityTable}.CommodityID = ?`, [args.commodityID])
             }
           }
@@ -39,7 +40,6 @@ export default {
                 sqlColumn: 'UserAgent'
             },
         },
-       
     },
     Commodity: {
         //map the Commodity object type to its SQL table
@@ -59,9 +59,54 @@ export default {
                 sqlColumn: 'Created'
             },
             commodityGUID: {
-                sqlColumn: 'commodityGUID'
+                sqlColumn: 'CommodityGUID',
+                sqlExpr: commodityTable => format(`uuid_from_bin(${commodityTable}.CommodityGUID)`)
+            },
+            commoditiesData: {
+                sqlJoin: (commodityTable, commodityDataTable, args) => format(`${commodityDataTable}.CommodityId = ${commodityTable}.CommodityId`)
+            }
+        }, 
+    },
+    CommodityData: {
+        //map the Commodity object type to its SQL table
+        sqlTable: 'CommodityData',
+        uniqueKey: 'CommodityDataID',
+        fields: {
+            commodityDataID : {
+                sqlColumn: 'CommodityDataID'
+            },
+            name: {
+                sqlColumn: 'Name'
+            },
+            value: {
+                sqlColumn: 'Value'
+            },
+            encoding: {
+                sqlColumn: 'Encoding'
+            },
+            creatorUserID: {
+                sqlColumn: 'CreatorUserID'
+            },
+            commodityID: {
+                sqlColumn: 'CommodityID'
+            },
+            created: {
+                sqlColumn: 'Created'
+            },
+            updated: {
+                sqlColumn: 'Updated'
+            },
+            commodityDataGUID: {
+                sqlColumn: 'CommodityDataGUID',
+                sqlExpr: commodityDataTable => format(`uuid_from_bin(${commodityDataTable}.CommodityDataGUID)`)
+            },
+            isDeleted: {
+                sqlColumn: 'IsDeleted',
+                resolve: ({commodityData}) => {
+                    console.log(commodityData.isDeleted);
+                    return commodityData.isDeleted === 1 ? true : false
+                }
             },
         },
-       
     }
 }
