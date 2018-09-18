@@ -1,28 +1,35 @@
 type Commodity {
- commodityID: Int!
- localName: String!
- quantity: Int!
- created: DateTime!
- commodityGUID: GUID!
- commoditiesData: [CommodityData!]!
+    CommodityID: Int!,
+    LocalName: String!,
+    Quantity: Int!,
+    Created: DateTime!,
+    CommodityGUID: GUID!,
+    CommoditiesData: [CommodityData!]!,
 }
 
 type Query {
- commodity(commodityID: Int!): Commodity,
- commodities: [Commodity]
+    Commodity(CommodityID: Int!): Commodity,
+    Commodities: [Commodity],
 }
 
 input CommodityInput {
-    localName: String!
-    quantity: Int!
-    commodityGUID: GUID!
+    LocalName: String!,
+    Quantity: Int!,
+    CommodityGUID: GUID!,
 }
 
+input CommodityDataInput {
+    Name: String
+    Value: String
+}
+
+
 input CommoditycommodityDataCommodityDataInput {
-    
+    Commodity: CommodityInput,
+    CommodityData: [CommodityDataInput]
 }
 
 type Mutation {
-    createCommodity(input: CommodityInput) : Commodity
-    createCommoditywithCommodityData(input: CommoditycommodityDataCommodityDataInput)
+    CreateCommodity(input: CommodityInput) : Commodity,
+    CreateCommoditywithCommodityData(input: CommoditycommodityDataCommodityDataInput): Commodity,
 }

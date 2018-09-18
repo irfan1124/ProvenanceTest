@@ -3,14 +3,15 @@ import joinMonster from 'join-monster';
 
 export default {
     Query: {
-        commodity: (parent, args, {knex, dialect}, info) => {
+        Commodity: (parent, args, {knex, dialect}, info) => {
+            console.log("args", args)
             return joinMonster(info, args, sql => {
                         console.log("sql by");
                         console.log(sql);
                         return knex.raw(sql).then(result => result[0])
                 }, dialect);
         }, 
-        commodities: (parent, args, {knex, dialect}, info) => {
+        Commodities: (parent, args, {knex, dialect}, info) => {
             return joinMonster(info, args, sql => {
                         console.log("sql all");
                         console.log(sql);
@@ -19,8 +20,23 @@ export default {
         }, 
     },
 	Mutation: {
-        createCommodity: (parent, {input}, {knex, dialect}) => {
-            return knex('Commodity').returning([input.localName]).insert(input).then( (resp) => { console.log(resp) });
+        CreateCommodity: (parent, {input}, {knex, dialect}, info) => {
+            //return knex('Commodity').returning([input.localName]).insert(input).then( (resp) => { console.log(resp) });
+            let args = {CommodityID: 1};
+            return joinMonster(info, args, sql => {
+                console.log("sql CreateCommodity");
+                console.log(sql);
+            }, dialect);
+            //return input;
+        },
+        CreateCommoditywithCommodityData: (parent, {input}, {knex, dialect}, info) => {
+            console.log(input);
+            knex('Commodity').returning([input.Commodity]).insert(input).then( (resp) => { console.log(resp) });
+            return joinMonster(info, {args:3}, sql => {
+                console.log("sql CreateCommodity");
+                console.log(sql);
+            }, dialect);
+            return true;
         }
     },
     Commodity: {

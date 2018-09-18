@@ -10,7 +10,7 @@ export default {
         //                 return knex.raw(sql).then(result => result[0])
         //         }, dialect);
         // }, 
-        commoditiesData: (parent, args, {knex, dialect}, info) => {
+        CommoditiesData: (parent, args, {knex, dialect}, info) => {
             return joinMonster(info, args, sql => {
                         console.log(sql);
                         return knex.raw(sql).then(result => result[0])

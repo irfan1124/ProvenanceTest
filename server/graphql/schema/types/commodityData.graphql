@@ -1,18 +1,23 @@
 type CommodityData {
-    commodityDataID: Int!
-    commodityDataGUID: GUID!
-    commodityID: Int
-    encoding: String!
-    name: String!
-    value: String!
-    creatorUserID: Int!
-    created: DateTime!
-    updated: DateTime!
-    isDeleted: Int!
-    commodity: Commodity
+    CommodityDataID: Int!
+    CommodityDataGUID: GUID!
+    CommodityID: Int
+    Encoding: String!
+    Name: String!
+    Value: String!
+    CreatorUserID: Int!
+    Created: DateTime!
+    Updated: DateTime!
+    IsDeleted: Int!
+    Commodity: Commodity
+}
+
+input CommodityDataInput {
+    Name: String
+    Value: String
 }
 
 
 type Query {
-    commoditiesData: [CommodityData]
+    CommoditiesData: [CommodityData]
 }
