@@ -18,6 +18,11 @@ input CommodityInput {
     commodityGUID: GUID!
 }
 
+input CommoditycommodityDataCommodityDataInput {
+    
+}
+
 type Mutation {
     createCommodity(input: CommodityInput) : Commodity
+    createCommoditywithCommodityData(input: CommoditycommodityDataCommodityDataInput)
 }
