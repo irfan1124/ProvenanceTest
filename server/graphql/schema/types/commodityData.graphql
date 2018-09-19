@@ -12,12 +12,6 @@ type CommodityData {
     Commodity: Commodity
 }
 
-input CommodityDataInput {
-    Name: String
-    Value: String
-}
-
-
 type Query {
     CommoditiesData: [CommodityData]
 }

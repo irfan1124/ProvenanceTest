@@ -1,5 +1,7 @@
 import models from '../../db/config/config'
+import { uuidToBuffer, bufferToUUID } from '../../helper/uuid/index'
 import joinMonster from 'join-monster';
+import { map, assign} from 'lodash';
 
 export default {
     Query: {
@@ -20,22 +22,27 @@ export default {
         }, 
     },
 	Mutation: {
-        CreateCommodity: (parent, {input}, {knex, dialect}, info) => {
-            //return knex('Commodity').returning([input.localName]).insert(input).then( (resp) => { console.log(resp) });
-            let args = {CommodityID: 1};
-            return joinMonster(info, args, sql => {
-                console.log("sql CreateCommodity");
-                console.log(sql);
-            }, dialect);
-            //return input;
-        },
-        CreateCommoditywithCommodityData: (parent, {input}, {knex, dialect}, info) => {
+        CreateCommodity: async (parent, {input}, {knex, dialect}, info) => {
+            input.CommodityGUID = uuidToBuffer(input.CommodityGUID);
+            let result = await knex('Commodity').insert(input);
+            input.CommodityID = result[0];
+            input.CommodityGUID = bufferToUUID(input.CommodityGUID);
             console.log(input);
-            knex('Commodity').returning([input.Commodity]).insert(input).then( (resp) => { console.log(resp) });
-            return joinMonster(info, {args:3}, sql => {
-                console.log("sql CreateCommodity");
-                console.log(sql);
-            }, dialect);
+            return input;
+        },
+        CreateCommoditywithCommodityData: async (parent, {input}, {knex, dialect}, info) => {
+            console.log(input); 
+            input.Commodity.CommodityGUID = uuidToBuffer(input.Commodity.CommodityGUID);
+            let commodityResult = await knex('Commodity').insert(input.Commodity);
+            if(commodityResult && input.CommodityData.length > 0) {
+                //add commodityID to CommodityData object
+                let CommodityDataObj =  map(input.CommodityData, function(element) { 
+                                            return assign({}, element, {CommodityID: commodityResult[0], CommodityDataGUID: uuidToBuffer(element.CommodityDataGUID) }); 
+                                        });
+                console.log(CommodityDataObj);
+                let commodityDataResult = await knex('CommodityData').insert(CommodityDataObj);
+                console.log(commodityDataResult);
+            }
             return true;
         }
     },

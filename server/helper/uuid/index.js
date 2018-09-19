@@ -20,7 +20,7 @@ function bufferToUUID(buff) {
         return null;
     buff = new Buffer(buff);
     var _hex = Buffer.prototype.toString.call(buff, 'hex');
-    //return _hex.toUpperCase();
+    _hex = _hex.toUpperCase();
     return _hex.slice(8, 16) + '-' + _hex.slice(4, 8) + '-' + _hex.slice(0, 4) + '-' + _hex.slice(16, 20) + '-' + _hex.slice(20); //commented because of new DB
     //return _hex.slice(5, 4) + '-' + _hex.slice(3, 2) + '-' + _hex.slice(1, 2) + '-' + _hex.slice(9, 2) + '-' + _hex.slice(11);
 }

@@ -1,9 +1,9 @@
 type Commodity {
-    CommodityID: Int!,
-    LocalName: String!,
-    Quantity: Int!,
-    Created: DateTime!,
-    CommodityGUID: GUID!,
+    CommodityID: Int,
+    LocalName: String,
+    Quantity: Int,
+    Created: DateTime,
+    CommodityGUID: GUID,
     CommoditiesData: [CommodityData!]!,
 }
 
@@ -16,20 +16,27 @@ input CommodityInput {
     LocalName: String!,
     Quantity: Int!,
     CommodityGUID: GUID!,
+    CategoryId: Int!,
+    OwnerCompanyID: Int!,
+    UnitOfMeasureID: Int!,
+    CreatorUserID: Int!
 }
 
 input CommodityDataInput {
-    Name: String
-    Value: String
+    Name: String!,
+    Value: String!,
+    CommodityDataGUID: GUID!,
+    Encoding: String!,
+    CreatorUserID: Int!,
 }
 
 
-input CommoditycommodityDataCommodityDataInput {
+input CommodityCommodityDataInput {
     Commodity: CommodityInput,
     CommodityData: [CommodityDataInput]
 }
 
 type Mutation {
     CreateCommodity(input: CommodityInput) : Commodity,
-    CreateCommoditywithCommodityData(input: CommoditycommodityDataCommodityDataInput): Commodity,
+    CreateCommoditywithCommodityData(input: CommodityCommodityDataInput): Boolean,
 }
