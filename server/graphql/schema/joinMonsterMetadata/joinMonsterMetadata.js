@@ -1,5 +1,4 @@
 import { escape, format } from 'sqlstring';
-import { resolve } from 'url';
 
 export default {
     Query: {

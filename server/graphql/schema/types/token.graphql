@@ -1,7 +1,7 @@
 
 type Query {
-    token(tokenID: ID!): Token,
-    tokens: [Token],
+    Token(tokenID: ID!): Token,
+    Tokens: [Token],
 }
 
 type Token {

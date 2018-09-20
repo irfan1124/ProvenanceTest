@@ -5,14 +5,14 @@ const options = { dialect : 'mysql' };
 
 export default {
     Query: {
-        token: (parent, args, {knex, dialect}, info) => {
+        Token: (parent, args, {knex, dialect}, info) => {
             return joinMonster(info, args, sql => {
                         console.log("sql");
                         console.log(sql);
                         return knex.raw(sql).then(result => result[0])
                 }, dialect);
         }, 
-        tokens: (parent, args, {knex, dialect}, info) => {
+        Tokens: (parent, args, {knex, dialect}, info) => {
             // return db.song.findAll({})
             return joinMonster(info, args, sql => {
                         console.log("sql");

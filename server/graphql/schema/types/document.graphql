@@ -1,0 +1,15 @@
+type Document {
+  DocumentID: Int!
+  DocumentDefinitionID: Int!
+  DocumentDefinition: DocumentDefinition
+  Reference: String!
+  Flagged: Int!
+  Notes: String!
+  CreatorUserID: Int!
+  CreatorUser: User
+  Created: DateTime!
+}
+
+type Query {
+  Document(DocumentID: Int!): Document
+}

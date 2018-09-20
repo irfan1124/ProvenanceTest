@@ -10,7 +10,7 @@ import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
 const typeDefs = require('./graphql/schema').default;
 const resolvers = require('./graphql/index').default
 import { initializeFirebaseApp, loginWithFirebase, verifyToken, addScopeToReq, revokeRefreshToken, getFirebaseUser } from './auth/firebase-auth';
-import joinMonsterMetadata from './graphql/schema/joinMonsterMetadata';
+import { joinMonsterMetadata } from './graphql/schema/joinMonsterMetadata';
 const knex = require('knex')(require('./db/config/knexConfig'))
 
 const app = express();
@@ -61,7 +61,7 @@ app.get('/refreshRevoke', errorHandler, function (req, res) {
   let uid = 'KP6XZjhdIrU8Y9M3Mc9L1PKIJW52';
   revokeRefreshToken(uid).then(obj => {
     console.log(obj)
-    res.json({ success: true,  obj });
+    res.json({ success: true, obj });
 
   }).catch(error => {
     res.json({ success: false, message: error });
@@ -73,7 +73,6 @@ app.get('/user', verifyToken, addScopeToReq, guard.check(['user:read']), errorHa
 })
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
-
 joinMonsterAdapt(schema, joinMonsterMetadata);//
 const dialect = { dialect: 'mysql' };
 //Apollo Server
@@ -97,5 +96,4 @@ server.applyMiddleware({ app }); // app is from an existing express app
 //     console.log('Unable to connect to the database:', err);
 //   });
 
-export default app; 
- 
+export default app;
